@@ -1,4 +1,8 @@
+#define  _CRT_SECURE_NO_WARNINGS 
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "stdbool.h"
 #include "SortArray.h"
 
@@ -124,6 +128,48 @@ void wildPoint()
 	printf("p1:%s p1:%d\n", p1, p1);
 	printf("p2:%s p2:%d\n", p2, p2);
 }
+//堆
+char *getHeapMemory(int num)
+{
+	char *point = NULL;
+	point = (char *)malloc(sizeof(char) * num);
+	if (point == NULL)
+	{
+		return NULL;
+	}
+	strcpy(point, "123456789");
+	return point;
+}
+//栈:return不是把内存块返回,而是把内存块的首地址返回
+char *getStackMemory()
+{
+	char buf[64]; //临时变量 栈区存放
+	strcpy(buf, "123456789");
+	//printf("buf:%s\n", buf);
+	return buf;//返回临时变量会报警
+}
+void dynamicMemory()
+{
+	char* heapPoint = NULL;
+	char* stackPoint = NULL;
+
+	heapPoint = getHeapMemory(10);
+	if (heapPoint == NULL)
+	{
+		return ;
+	}
+	printf("heapPoint:%s\n", heapPoint);
+	strcpy(heapPoint, "111222"); //向heapPoint做指向的内存空间中copy数据
+	printf("heapPoint:%s\n", heapPoint);
+	free(heapPoint);//堆内存用完需要释放内存
+
+	stackPoint = getStackMemory();
+	if (stackPoint == NULL)
+	{
+		return ;
+	}
+	printf("stackPoint:%s\n", stackPoint);//栈内存会自动被回收
+}
 
 int main()
 {
@@ -133,7 +179,11 @@ int main()
 
 	//staticMemory();
 
-	wildPoint();
+	//wildPoint();
+
+	dynamicMemory();
+	
+	
 	
 	return 0;
 }
