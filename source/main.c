@@ -200,6 +200,22 @@ void stackMemoryGrowthDirection()
 	}
 }
 
+//指针铁律
+void pointIronLaw()
+{
+	int num1 = 10;
+	int num2 = 0;
+	int* point = NULL;
+
+	point = &num1; //让指针point指向num，即point拿到内存的钥匙
+	*point = 20; //通过钥匙间接修改内存的值
+	printf("num1:%d\n", num1);
+
+	num2 = *point; //*point放在=号左边 写内存,*p放=号的右边 读内存
+	printf("num2:%d\n", num2);
+}
+
+
 int main()
 {
 	//testSortArray();
@@ -212,8 +228,9 @@ int main()
 
 	//dynamicMemory();
 	
-	stackMemoryGrowthDirection();
+	//stackMemoryGrowthDirection();
 	
+	pointIronLaw();
 	
 	return 0;
 }
