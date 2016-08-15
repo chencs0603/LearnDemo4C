@@ -171,6 +171,35 @@ void dynamicMemory()
 	printf("stackPoint:%s\n", stackPoint);//栈内存会自动被回收
 }
 
+//说明栈和内存地址的生长方向
+void stackMemoryGrowthDirection()
+{
+	int a;
+	int b;
+
+	int buf[64];
+
+	printf("&a:%d, &b:%d\n", &a, &b);
+	if (&a > &b)
+	{
+		printf("栈的生长方向向下\n");
+	}
+	else
+	{
+		printf("栈的生长方向向上\n");
+	}
+
+	printf("&buf[10]:%d, &buf[20]:%d\n", &buf[10], &buf[20]);
+	if (&buf[10] > &buf[20])
+	{
+		printf("内存的生长方向向下\n");
+	}
+	else
+	{
+		printf("内存的生长方向向上\n");
+	}
+}
+
 int main()
 {
 	//testSortArray();
@@ -181,8 +210,9 @@ int main()
 
 	//wildPoint();
 
-	dynamicMemory();
+	//dynamicMemory();
 	
+	stackMemoryGrowthDirection();
 	
 	
 	return 0;
