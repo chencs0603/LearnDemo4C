@@ -224,11 +224,74 @@ void pointIronLaw()
 	//间接赋值的前途条件是所指内存是可修改的
 	*(szPoint + 1) = '4';
 	printf("*szPoint：%s", szPoint);//debug版下输出：a4cd,release版下输出：abcd
+}
+//间接赋值成立的3个条件
+void clearNum(int* num)
+{
+	*num = 0;
+}
+void indirectAssign()
+{
+	//1、定义两个变量（实参和形参）
+	int num = 10;
+	int* point = NULL;
+	//2、建立关联，实参取地址赋给形参指针
+	point = &num;
 
+	printf("num:%d\n", num);
+	//3、间接赋值，*point放=左边修改实参的值
+	clearNum(point);
 
+	printf("num:%d\n", num);
+}
+//一级指针做输入、输出的典型用法
+bool toggleString(char* pOriginalStr, int originalStrLen, char* pRetStr, int* retStrLen)
+{
+	int i;
 
+	if (NULL == pOriginalStr || 0 >= originalStrLen)
+	{
+		return false;
+	}
+
+	for (i = 0; i < originalStrLen; i++)
+	{
+		if (pOriginalStr[i] >= 'a' && pOriginalStr[i] <= 'z')
+		{
+			pRetStr[i] = pOriginalStr[i] - 0x20;
+		}
+		else if (pOriginalStr[i] >= 'A' && pOriginalStr[i] <= 'Z')
+		{
+			pRetStr[i] = pOriginalStr[i] + 0x20;
+		}
+		else
+		{
+			pRetStr[i] = pOriginalStr[i];
+		}	
+	}
+	*retStrLen = originalStrLen;
+	
+	return true;
 }
 
+void pointTypicalUse()
+{
+	//C语言中的字符串是以’\0’结束的字符数组
+	//字符串可以分配于栈空间，堆空间或者只读存储区
+	char* str = "aBcDe1g4";
+	int strLen = strlen(str);//strlen只计算字符串的个数，不计结束符'\0'
+
+	char* retStr = (char*)malloc(strLen + 1);
+	int retStrLen = 0;
+	bool bRet = false;
+	memset(retStr, 0x00, strLen + 1);//考虑结束符'\0'
+
+	bRet = toggleString(str, strLen, retStr, &retStrLen);
+	if (bRet)
+	{
+		printf("str:%s, retStr:%s\n", str, retStr);
+	}
+}
 
 int main()
 {
@@ -244,7 +307,12 @@ int main()
 	
 	//stackMemoryGrowthDirection();
 	
-	pointIronLaw();
+	//pointIronLaw();
+
+	//indirectAssign();
+
+	pointTypicalUse();
+
 	
 	return 0;
 }
