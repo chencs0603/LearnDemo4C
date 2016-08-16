@@ -205,14 +205,28 @@ void pointIronLaw()
 {
 	int num1 = 10;
 	int num2 = 0;
-	int* point = NULL;
+	int* iPoint = NULL;
+	char* szPoint = "abcd";
 
-	point = &num1; //让指针point指向num，即point拿到内存的钥匙
-	*point = 20; //通过钥匙间接修改内存的值
+	iPoint = &num1; //让指针point指向num，即point拿到内存的钥匙
+	*iPoint = 20; //通过钥匙间接修改内存的值
 	printf("num1:%d\n", num1);
 
-	num2 = *point; //*point放在=号左边 写内存,*p放=号的右边 读内存
+	num2 = *iPoint; //*point放在=号左边 写内存,*p放=号的右边 读内存
 	printf("num2:%d\n", num2);
+
+	//指针也是一种数据类型，占用内存大小为4字节（32bit OS）或8字节（64bit OS）
+	printf("size(iPoint):%d, size(long*):%d, size(char*):%d\n", sizeof(iPoint), sizeof(long*), sizeof(char*));
+	//指针的size虽然一样，但是步长存在差别
+	printf("int*步长：%d, char*步长：%d\n", (int)(iPoint + 1) - (int)iPoint, (int)(szPoint + 1) - (int)szPoint);
+	printf("(iPoint + 1) - iPoint：%d, (szPoint + 1) - szPoint：%d\n", (iPoint + 1) - iPoint, (szPoint + 1) - szPoint);
+
+	//间接赋值的前途条件是所指内存是可修改的
+	*(szPoint + 1) = '4';
+	printf("*szPoint：%s", szPoint);//debug版下输出：a4cd,release版下输出：abcd
+
+
+
 }
 
 
