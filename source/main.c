@@ -292,6 +292,35 @@ void pointTypicalUse()
 		printf("str:%s, retStr:%s\n", str, retStr);
 	}
 }
+//字符串作函数参数
+bool myStrCpy(char* pDst, char* pSrc)
+{
+	if (pSrc == NULL || pDst == NULL)
+	{
+		return false;
+	}
+
+	while((*pDst++ = *pSrc++));
+
+	return true;
+}
+
+void strCpyTest()
+{
+	char dstStr[0x10];
+
+	bool bRet = myStrCpy(dstStr, "abac");
+
+	if (bRet)
+	{
+		printf("%s\n", dstStr);
+	}
+	else
+	{
+		printf("str copy error\n");
+	}
+	
+}
 
 int main()
 {
@@ -311,8 +340,9 @@ int main()
 
 	//indirectAssign();
 
-	pointTypicalUse();
+	//pointTypicalUse();
 
-	
+	strCpyTest();
+
 	return 0;
 }
