@@ -321,6 +321,45 @@ void strCpyTest()
 	}
 	
 }
+//strstr-dowhileÄ£ÐÍ
+int computeSubStrCount(char* pszSrc, char* pszSubStr)
+{
+	int count = 0;
+
+	char* pszTmp = pszSrc;
+
+	do 
+	{
+		pszTmp = strstr(pszTmp, pszSubStr);
+		if (NULL != pszTmp)
+		{
+			count++;
+			pszTmp = pszTmp + strlen(pszSubStr);
+		}
+		else
+		{
+			break;
+		}
+	} while (('\0' != *pszTmp));
+
+	return count;
+}
+
+void subStrCountTest()
+{
+	char* pszSrc = "ad133abcdaga245eabc4rgfghabcd4y";
+	char* pszSubStr = "abc";
+	
+	int count = computeSubStrCount(pszSrc, pszSubStr);
+	if (0 != count)
+	{
+		printf("count:%d\n", count);
+	}
+	else
+	{
+		printf("NOT FOUND\n");
+	}
+}
 
 int main()
 {
@@ -342,7 +381,9 @@ int main()
 
 	//pointTypicalUse();
 
-	strCpyTest();
+	//strCpyTest();
+
+	subStrCountTest();
 
 	return 0;
 }
