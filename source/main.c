@@ -245,28 +245,28 @@ void indirectAssign()
 	printf("num:%d\n", num);
 }
 //一级指针做输入、输出的典型用法
-bool toggleString(char* pOriginalStr, int originalStrLen, char* pRetStr, int* retStrLen)
+bool toggleString(char* pszOriginal, int originalStrLen, char* pszRet, int* retStrLen)
 {
 	int i;
 
-	if (NULL == pOriginalStr || 0 >= originalStrLen)
+	if (NULL == pszOriginal || 0 >= originalStrLen)
 	{
 		return false;
 	}
 
 	for (i = 0; i < originalStrLen; i++)
 	{
-		if (pOriginalStr[i] >= 'a' && pOriginalStr[i] <= 'z')
+		if (pszOriginal[i] >= 'a' && pszOriginal[i] <= 'z')
 		{
-			pRetStr[i] = pOriginalStr[i] - 0x20;
+			pszRet[i] = pszOriginal[i] - 0x20;
 		}
-		else if (pOriginalStr[i] >= 'A' && pOriginalStr[i] <= 'Z')
+		else if (pszOriginal[i] >= 'A' && pszOriginal[i] <= 'Z')
 		{
-			pRetStr[i] = pOriginalStr[i] + 0x20;
+			pszRet[i] = pszOriginal[i] + 0x20;
 		}
 		else
 		{
-			pRetStr[i] = pOriginalStr[i];
+			pszRet[i] = pszOriginal[i];
 		}	
 	}
 	*retStrLen = originalStrLen;
@@ -278,29 +278,29 @@ void pointTypicalUse()
 {
 	//C语言中的字符串是以’\0’结束的字符数组
 	//字符串可以分配于栈空间，堆空间或者只读存储区
-	char* str = "aBcDe1g4";
-	int strLen = strlen(str);//strlen只计算字符串的个数，不计结束符'\0'
+	char* pszOriginal = "aBcDe1g4";
+	int originalStrLen = strlen(pszOriginal);//strlen只计算字符串的个数，不计结束符'\0'
 
-	char* retStr = (char*)malloc(strLen + 1);
+	char* pszRet = (char*)malloc(originalStrLen + 1);
 	int retStrLen = 0;
 	bool bRet = false;
-	memset(retStr, 0x00, strLen + 1);//考虑结束符'\0'
+	memset(pszRet, 0x00, originalStrLen + 1);//考虑结束符'\0'
 
-	bRet = toggleString(str, strLen, retStr, &retStrLen);
+	bRet = toggleString(pszOriginal, originalStrLen, pszRet, &retStrLen);
 	if (bRet)
 	{
-		printf("str:%s, retStr:%s\n", str, retStr);
+		printf("str:%s, retStr:%s\n", pszOriginal, pszRet);
 	}
 }
 //字符串作函数参数
-bool myStrCpy(char* pDst, char* pSrc)
+bool myStrCpy(char* pszDst, char* pszSrc)
 {
-	if (pSrc == NULL || pDst == NULL)
+	if (pszSrc == NULL || pszDst == NULL)
 	{
 		return false;
 	}
 
-	while((*pDst++ = *pSrc++));
+	while((*pszDst++ = *pszSrc++));
 
 	return true;
 }
