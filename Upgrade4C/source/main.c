@@ -372,9 +372,9 @@ int main()
 	//wildPoint();
 
 	//dynamicMemory();
-	
+
 	//stackMemoryGrowthDirection();
-	
+
 	//pointIronLaw();
 
 	//indirectAssign();
